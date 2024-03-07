@@ -1,20 +1,24 @@
-version: '3'
+version: "3"
 services:
-        limo_humble:
-                network_mode: host
-                volumes:
-                        - '/dev:/dev'
-                        - '/tmp/.X11-unix:/tmp/.X11-unix'
-                privileged: true
-                environment:
-                        - "XAUTHORITY=$AUTH"
-                        - "LIBGL_ALWAYS_SOFTWARE=1"
-                        - "DISPLAY=$DISPLAY"
-                        - "AUTH=$AUTH"
-                device_cgroup_rules:
-                        - "a *:* rmw"
-                tty: true
-                runtime: nvidia
-                build: ./limo-humble
-                image: limo-humble
-                container_name: limo_humble_dev
+  limo_humble:
+    network_mode: host
+    ipc: host
+    volumes:
+      - "/dev:/dev"
+      - "/tmp/.X11-unix:/tmp/.X11-unix"
+    privileged: true
+    environment:
+      - "XAUTHORITY=$AUTH"
+      - "LIBGL_ALWAYS_SOFTWARE=1"
+      - "DISPLAY=$DISPLAY"
+      - "AUTH=$AUTH"
+      - "ROS_DOMAIN_ID=100"
+      - "ROS_LOCALHOST_ONLY=0"
+    device_cgroup_rules:
+      - "a *:* rmw"
+    tty: true
+    runtime: nvidia
+    build: ./limo-humble
+    image: limo-humble
+    container_name: limo_humble_dev
+    command: ros2 launch limo_bringup limo_start.launch.py
