@@ -29,7 +29,8 @@ RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 42D5A192B819C5DA \
     python3-pip \
     ros-humble-joint-state-publisher-gui \
     ros-humble-rqt-robot-steering \
-    ros-humble-teleop-twist-keyboard\
+    ros-humble-teleop-twist-keyboard \
+    ros-humble-teleop-twist-joy \
     ros-humble-cartographer-ros \
     ros-humble-navigation2 \
     ros-humble-nav2-bringup \
