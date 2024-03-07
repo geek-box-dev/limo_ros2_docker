@@ -27,9 +27,17 @@ RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 42D5A192B819C5DA \
     swig \
     software-properties-common \
     python3-pip \
+    libgflags-dev \
+    ros-humble-image-geometry \
+    ros-humble-camera-info-manager \
+    ros-humble-image-transport \
+    ros-humble-image-publisher \
+    libgoogle-glog-dev \
+    libeigen3-dev \
     ros-humble-joint-state-publisher-gui \
     ros-humble-rqt-robot-steering \
-    ros-humble-teleop-twist-keyboard\
+    ros-humble-teleop-twist-keyboard \
+    ros-humble-teleop-twist-joy \
     ros-humble-cartographer-ros \
     ros-humble-navigation2 \
     ros-humble-nav2-bringup \
@@ -46,13 +54,27 @@ RUN git clone https://github.com/YDLIDAR/YDLidar-SDK.git &&\
     pip install . &&\
     cd .. && rm -r YDLidar-SDK 
 
+RUN git clone https://github.com/libuvc/libuvc.git && \
+    cd libuvc && \
+    mkdir build && \
+    cd build && \
+    cmake .. && \
+    make && \
+    make install && \
+    sudo ldconfig
+
 RUN mkdir -p /root/ros2_ws/src/ && \
     . /opt/ros/humble/setup.sh && \
     cd /root/ros2_ws/src && \
     git clone -b humble-dev https://github.com/TechShare-inc/limo_ros2.git && \
+    git clone -b master https://github.com/orbbec/ros2_astra_camera.git && \
+    cd /root/ros2_ws/src/ros2_astra_camera/astra_camera/scripts && \
+    bash install.sh && \
+    udevadm control --reload-rules && sudo udevadm trigger && \
     cd /root/ros2_ws && \
     colcon build && \
     bash /root/ros2_ws/install/setup.bash
+
 
 RUN echo "source /opt/ros/humble/setup.bash" >> /etc/bash.bashrc && \
     echo "source /root/ros2_ws/install/setup.bash" >> /etc/bash.bashrc
