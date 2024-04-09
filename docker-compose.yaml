@@ -7,11 +7,9 @@ services:
       - "/dev:/dev"
       - "/tmp/.X11-unix:/tmp/.X11-unix"
     privileged: true
-    environment:
-      - "XAUTHORITY=$AUTH"
+    environment:      
       - "LIBGL_ALWAYS_SOFTWARE=1"
       - "DISPLAY=$DISPLAY"
-      - "AUTH=$AUTH"
       - "ROS_DOMAIN_ID=100"
       - "ROS_LOCALHOST_ONLY=0"
     device_cgroup_rules:
