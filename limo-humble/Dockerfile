@@ -66,11 +66,7 @@ RUN git clone https://github.com/libuvc/libuvc.git && \
 RUN mkdir -p /root/ros2_ws/src/ && \
     . /opt/ros/humble/setup.sh && \
     cd /root/ros2_ws/src && \
-    git clone -b humble-dev https://github.com/TechShare-inc/limo_ros2.git && \
-    git clone -b master https://github.com/orbbec/ros2_astra_camera.git && \
-    cd /root/ros2_ws/src/ros2_astra_camera/astra_camera/scripts && \
-    bash install.sh && \
-    udevadm control --reload-rules && sudo udevadm trigger && \
+    git clone -b humble-dev-autoware https://github.com/geek-box-dev/limo_ros2.git && \
     cd /root/ros2_ws && \
     colcon build && \
     bash /root/ros2_ws/install/setup.bash
